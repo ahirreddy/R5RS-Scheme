@@ -1,45 +1,3 @@
-\chapter{Formal syntax and semantics}
-\label{formalchapter}
-
-This chapter provides formal descriptions of what has already been
-described informally in previous chapters of this report.
-
-\todo{Allow grammar to say that else clause needn't be last?}
-
-
-\section{Formal syntax}
-\label{BNF}
-
-This section provides a formal syntax for Scheme written in an extended
-BNF.
-
-All spaces in the grammar are for legibility.  Case is insignificant;
-for example, {\cf \#x1A} and {\cf \#X1a} are equivalent.  \meta{empty}
-stands for the empty string.
-
-The following extensions to BNF are used to make the description more
-concise:  \arbno{\meta{thing}} means zero or more occurrences of
-\meta{thing}; and \atleastone{\meta{thing}} means at least one
-\meta{thing}.
-
-
-\subsection{Lexical structure}
-
-This section describes how individual tokens\index{token} (identifiers,
-numbers, etc.) are formed from sequences of characters.  The following
-sections describe how expressions and programs are formed from sequences
-of tokens.
-
-\meta{Intertoken space} may occur on either side of any token, but not
-within a token.
-
-\vest Tokens which require implicit termination (identifiers, numbers,
-characters, and dot) may be terminated by any \meta{delimiter}, but not
-necessarily by anything else.
-
-The following five characters are reserved for future extensions to the
-language: {\tt \verb"[" \verb"]" \verb"{" \verb"}" \verb"|"}
-
 \begin{grammar}%
 \meta{token} \: \meta{identifier} \| \meta{boolean} \| \meta{number}\index{identifier}
 \>  \| \meta{character} \| \meta{string}
@@ -51,12 +9,6 @@ language: {\tt \verb"[" \verb"]" \verb"{" \verb"}" \verb"|"}
 \meta{atmosphere} \: \meta{whitespace} \| \meta{comment}
 \meta{intertoken space} \: \arbno{\meta{atmosphere}}%
 \end{grammar}
-
-\label{extendedalphas}
-\label{identifiersyntax}
-
-% This is a kludge, but \multicolumn doesn't work in tabbing environments.
-\setbox0\hbox{\cf\meta{variable} \goesto{} $\langle$}
 
 \begin{grammar}%
 \meta{identifier} \: \meta{initial} \arbno{\meta{subsequent}}
@@ -93,23 +45,12 @@ language: {\tt \verb"[" \verb"]" \verb"{" \verb"}" \verb"|"}
  \>  \| \backwhack\doublequote{} \| \backwhack\backwhack %
 \end{grammar}
 
-
-\label{numbersyntax}
-
 \begin{grammar}%
 \meta{number} \: \meta{num $2$}%
        \| \meta{num $8$}
    \>  \| \meta{num $10$}%
        \| \meta{num $16$}
 \end{grammar}
-
-The following rules for \meta{num $R$}, \meta{complex $R$}, \meta{real
-$R$}, \meta{ureal $R$}, \meta{uinteger $R$}, and \meta{prefix $R$}
-should be replicated for \hbox{$R = 2, 8, 10,$}
-and $16$.  There are no rules for \meta{decimal $2$}, \meta{decimal
-$8$}, and \meta{decimal $16$}, which means that numbers containing
-decimal points or exponents must be in decimal radix.
-\todo{Mark Meyer and David Bartley want to fix this.  (What? -- Will)}
 
 \begin{grammar}%
 \meta{num $R$} \: \meta{prefix $R$} \meta{complex $R$}
@@ -156,16 +97,6 @@ decimal points or exponents must be in decimal radix.
 \meta{digit 16} \: \meta{digit $10$} \| a \| b \| c \| d \| e \| f %
 \end{grammar}
 
-\todo{Mark Meyer of TI sez, shouldn't we allow {\tt 1e3/2}?}
-
-
-\subsection{External representations}
-\label{datumsyntax}
-
-\meta{Datum} is what the \ide{read} procedure (section~\ref{read})
-successfully parses.  Note that any string that parses as an
-\meta{ex\-pres\-sion} will also parse as a \meta{datum}.  \label{datum}
-
 \begin{grammar}%
 \meta{datum} \: \meta{simple datum} \| \meta{compound datum}
 \meta{simple datum} \: \meta{boolean} \| \meta{number}
@@ -178,9 +109,6 @@ successfully parses.  Note that any string that parses as an
 \meta{abbrev prefix} \: ' \| ` \| , \| ,@
 \meta{vector} \: \#(\arbno{\meta{datum}}) %
 \end{grammar}
-
-
-\subsection{Expressions}
 
 \begin{grammar}%
 \meta{expression} \: \meta{variable}
@@ -258,13 +186,6 @@ successfully parses.  Note that any string that parses as an
 
 \end{grammar}
 
-\subsection{Quasiquotations}
-
-The following grammar for quasiquote expressions is not context-free.
-It is presented as a recipe for generating an infinite number of
-production rules.  Imagine a copy of the following rules for $D = 1, 2,
-3, \ldots$.  $D$ keeps track of the nesting depth.
-
 \begin{grammar}%
 \meta{quasiquotation} \: \meta{quasiquotation 1}
 \meta{qq template 0} \: \meta{expression}
@@ -286,14 +207,6 @@ production rules.  Imagine a copy of the following rules for $D = 1, 2,
 \meta{splicing unquotation $D$} \: ,@\meta{qq template $D-1$}
 \>    \| (unquote-splicing \meta{qq template $D-1$}) %
 \end{grammar}
-
-In \meta{quasiquotation}s, a \meta{list qq template $D$} can sometimes
-be confused with either an \meta{un\-quota\-tion $D$} or a \meta{splicing
-un\-quo\-ta\-tion $D$}.  The interpretation as an
-\meta{un\-quo\-ta\-tion} or \meta{splicing
-un\-quo\-ta\-tion $D$} takes precedence.
-
-\subsection{Transformers}
 
 \begin{grammar}%
 \meta{transformer spec} \:
@@ -321,8 +234,6 @@ un\-quo\-ta\-tion $D$} takes precedence.
 \meta{pattern identifier} \: \meta{any identifier except {\cf ...}}
 \meta{ellipsis} \: \meta{the identifier {\cf ...}}
 \end{grammar}
-
-\subsection{Programs and definitions}
 
 \begin{grammar}%
 \meta{program} \: \arbno{\meta{command or definition}}
