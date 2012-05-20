@@ -1,4 +1,4 @@
-\begin{grammar}%
+---------
 \meta{token} \: \meta{identifier} \| \meta{boolean} \| \meta{number}\index{identifier}
 \>  \| \meta{character} \| \meta{string}
 \>  \| ( \| ) \| \sharpsign( \| \singlequote{} \| \backquote{} \| , \| ,@ \| {\bf.}
@@ -8,9 +8,9 @@
 		    \>\ \rm line break$\rangle$\index{comment}
 \meta{atmosphere} \: \meta{whitespace} \| \meta{comment}
 \meta{intertoken space} \: \arbno{\meta{atmosphere}}%
-\end{grammar}
 
-\begin{grammar}%
+
+---------
 \meta{identifier} \: \meta{initial} \arbno{\meta{subsequent}}
  \>  \| \meta{peculiar identifier}
 \meta{initial} \: \meta{letter} \| \meta{special initial}
@@ -43,16 +43,16 @@
 \meta{string} \: " \arbno{\meta{string element}} "
 \meta{string element} \: \meta{any character other than \doublequote{} or \backwhack}
  \>  \| \backwhack\doublequote{} \| \backwhack\backwhack %
-\end{grammar}
 
-\begin{grammar}%
+
+---------
 \meta{number} \: \meta{num $2$}%
        \| \meta{num $8$}
    \>  \| \meta{num $10$}%
        \| \meta{num $16$}
-\end{grammar}
 
-\begin{grammar}%
+
+---------
 \meta{num $R$} \: \meta{prefix $R$} \meta{complex $R$}
 \meta{complex $R$} \: %
          \meta{real $R$} %
@@ -79,9 +79,9 @@
 \meta{prefix $R$} \: %
          \meta{radix $R$} \meta{exactness}
    \> \| \meta{exactness} \meta{radix $R$}
-\end{grammar}
 
-\begin{grammar}%
+
+---------
 \meta{suffix} \: \meta{empty} 
    \> \| \meta{exponent marker} \meta{sign} \atleastone{\meta{digit $10$}}
 \meta{exponent marker} \: e \| s \| f \| d \| l
@@ -95,9 +95,9 @@
 \meta{digit 8} \: 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7
 \meta{digit 10} \: \meta{digit}
 \meta{digit 16} \: \meta{digit $10$} \| a \| b \| c \| d \| e \| f %
-\end{grammar}
 
-\begin{grammar}%
+
+---------
 \meta{datum} \: \meta{simple datum} \| \meta{compound datum}
 \meta{simple datum} \: \meta{boolean} \| \meta{number}
 \>  \| \meta{character} \| \meta{string} \|  \meta{symbol}
@@ -108,9 +108,9 @@
 \meta{abbreviation} \: \meta{abbrev prefix} \meta{datum}
 \meta{abbrev prefix} \: ' \| ` \| , \| ,@
 \meta{vector} \: \#(\arbno{\meta{datum}}) %
-\end{grammar}
 
-\begin{grammar}%
+
+---------
 \meta{expression} \: \meta{variable}
 \>  \| \meta{literal}
 \>  \| \meta{procedure call}
@@ -184,9 +184,9 @@
 \>  \| (letrec-syntax (\arbno{\meta{syntax spec}}) \meta{body})
 \meta{syntax spec} \: (\meta{keyword} \meta{transformer spec})
 
-\end{grammar}
 
-\begin{grammar}%
+
+---------
 \meta{quasiquotation} \: \meta{quasiquotation 1}
 \meta{qq template 0} \: \meta{expression}
 \meta{quasiquotation $D$} \: `\meta{qq template $D$}
@@ -206,9 +206,9 @@
 \>    \| \meta{splicing unquotation $D$}
 \meta{splicing unquotation $D$} \: ,@\meta{qq template $D-1$}
 \>    \| (unquote-splicing \meta{qq template $D-1$}) %
-\end{grammar}
 
-\begin{grammar}%
+
+---------
 \meta{transformer spec} \:
 \> (syntax-rules (\arbno{\meta{identifier}}) \arbno{\meta{syntax rule}})
 \meta{syntax rule} \: (\meta{pattern} \meta{template})
@@ -233,9 +233,9 @@
 \meta{template datum} \: \meta{pattern datum}
 \meta{pattern identifier} \: \meta{any identifier except {\cf ...}}
 \meta{ellipsis} \: \meta{the identifier {\cf ...}}
-\end{grammar}
 
-\begin{grammar}%
+
+---------
 \meta{program} \: \arbno{\meta{command or definition}}
 \meta{command or definition} \: \meta{command}
 \> \| \meta{definition}
@@ -248,4 +248,3 @@
 \>   \| \arbno{\meta{variable}} .\ \meta{variable}
 \meta{syntax definition} \:
 \>  (define-syntax \meta{keyword} \meta{transformer spec})
-\end{grammar}
