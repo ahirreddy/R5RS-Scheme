@@ -12,23 +12,6 @@ The following five characters are reserved for future extensions to the language
 
 Datum is what the read procedure (section see section 6.6.2 Input) successfully parses. Note that any string that parses as an expression will also parse as a datum.;
 
-datum : simple-datum | compound-datum;
-
-simple-datum : boolean | number
-     | character | string |  symbol;
-
-symbol : identifier;
-
-compound-datum : list | vector;
-
-list : (datum*) | (datum+ . datum)
-       | abbreviation;
-
-abbreviation : abbrev-prefix datum;
-
-abbrev-prefix : "'" | "`" | "," | ",@";
-
-vector : #(datum*) 
 
 7.1.3 Expressions;
 
