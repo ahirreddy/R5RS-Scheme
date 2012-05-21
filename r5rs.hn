@@ -28,6 +28,104 @@ token : identifier | boolean | number
      | character | string
      | "(" | ")" | "#(" | "'" | "`" | "," | ",@" | ".";
 
+delimiter : whitespace | "(" | ")" | "\"" | ";";
+
+whitespace : " " | "\n"; //space-or-newline;
+
+//-------------------------
+comment : ";"; // <all subsequent characters up to a line break>;
+
+atmosphere : whitespace | comment;
+
+intertokenSpace : atmosphere*;
+
+identifier : initial subsequent*
+     | peculiarIdentifier;
+
+initial : letter | specialInitial;
+
+//-------------------------
+letter : "a" | "b" | "c" | "..." | "z";
+
+specialInitial : "!" | "$" | "%" | "&" | "*" | "/" | ":" | "<" | "="
+     | ">" | "?" | "^" | "_" | "~";
+
+subsequent : initial | digit
+     | specialSubsequent;
+
+digit : "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+
+specialSubsequent : "+" | "-" | "." | "@";
+
+peculiarIdentifier : "+" | "-" | "...";
+
+syntacticKeyword : expressionKeyword
+     | "else" | "=>" | "define" 
+     | "unquote" | "unquote-splicing";
+
+expressionKeyword : "quote" | "lambda" | "if"
+     | "set!" | "begin" | "cond" | "and" | "or" | "case"
+     | "let" | "let*" | "letrec" | "do" | "delay"
+	 | "quasiquote";
+
+variable : "any var not a key word" ; //<'any identifier that isn't also a syntactic-keyword>;
+
+boolean : "#t" | "#f";
+
+character : "#\\" anyCharacter
+     | "#\\" characterName;
+
+characterName : "space" | "newline";
+
+string : "\"" stringElement* "\"";
+
+stringElement : //<any-character-other-than-"-or-\>
+     | "\\\"" | "\\\\" ;
+
+number : num2| num8
+	 | num10| num16;
+
+//The following rules for num-R, complex-R, real-R, ureal-R, uinteger-R, and prefix-R should be replicated for R = 2, 8, 10, and 16. There are no rules for decimal-2, decimal-8, and decimal-16, which means that numbers containing decimal points or exponents must be in decimal radix.;
+
+numR : prefixR complexR;
+
+complexR : realR | realR "@" realR
+    | realR "+" urealR "i" | realR "-" urealR "i"
+    | realR "+" "i" | realR "-" "i"
+    | "+" urealR "i" | "-" urealR i | "+" "i" | "-" "i";
+
+realR : sign urealR;
+
+urealR : uintegerR
+    | uintegerR "/" uintegerR
+	| decimalR;
+
+decimal10 : uinteger10 suffix
+    | "." digit10+ "#*" suffix
+    | digit10+ "." digit10* "#*" suffix
+    | digit10+ "#+" "." "#*" suffix;
+
+uintegerR : digitR+ "#*";
+
+prefixR : radixR exactness
+    | exactness radixR;
+
+suffix : empty 
+    | exponentMarker sign digit10+;
+
+exponentMarker : "e" | "s" | "f" | "d" | "l";
+
+sign : empty  | "+" |  "-";
+
+exactness : empty | "#i" | "#e";
+radix2 : "#b";
+radix8 : "#o";
+radix10 : empty | "#d";
+radix16 : "#x";
+digit2 : "0" | "1";
+digit8 : "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7";
+digit10 : digit;
+digit16 : digit10 | "a" | "b" | "c" | "d" | "e" | "f";
 %%
 
 int
