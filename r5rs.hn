@@ -92,7 +92,7 @@ numR : prefixR complexR;
 complexR : realR | realR "@" realR
     | realR "+" urealR "i" | realR "-" urealR "i"
     | realR "+" "i" | realR "-" "i"
-    | "+" urealR "i" | "-" urealR i | "+" "i" | "-" "i";
+    | "+" urealR "i" | "-" urealR "i" | "+" "i" | "-" "i";
 
 realR : sign urealR;
 
@@ -110,17 +110,17 @@ uintegerR : digitR+ "#*";
 prefixR : radixR exactness
     | exactness radixR;
 
-suffix : empty 
+suffix : "" 
     | exponentMarker sign digit10+;
 
 exponentMarker : "e" | "s" | "f" | "d" | "l";
 
-sign : empty  | "+" |  "-";
+sign : ""  | "+" |  "-";
 
-exactness : empty | "#i" | "#e";
+exactness : "" | "#i" | "#e";
 radix2 : "#b";
 radix8 : "#o";
-radix10 : empty | "#d";
+radix10 : "" | "#d";
 radix16 : "#x";
 digit2 : "0" | "1";
 digit8 : "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7";
