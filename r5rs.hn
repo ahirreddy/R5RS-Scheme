@@ -146,6 +146,103 @@ abbreviation : abbrevPrefix datum;
 abbrevPrefix : "'" | "`" | "," | ",@";
 
 vector : '#' '(' datum* ')';
+
+//Expressions
+
+expression : variable
+     | literal
+     | procedureCall
+     | lambdaExpression
+     | conditional
+     | assignment
+     | derivedExpression
+     | macroUse
+     | macroBlock;
+
+literal : quotation | selfEvaluating;
+
+selfEvaluating : boolean | number
+     | character | string;
+
+quotation : "'" datum | "(" "quote" datum ")";
+
+procedureCall : (operator operand*);
+
+operator : expression;
+
+operand : expression;
+
+lambdaExpression : (lambda formals body);
+
+formals : "(" variable* ")" | variable
+     | "(" variable+ "." variable ")";
+
+body : definition* sequence;
+
+sequence : command* expression;
+
+command : expression;
+
+conditional : (if test consequent alternate);
+
+test : expression;
+
+consequent : expression;
+
+alternate : expression | empty;
+
+assignment : (set! variable expression);
+
+derivedExpression :
+       (cond condClause+)
+     | "(" "cond" condClause* "(" "else" sequence ")" ")"
+     | "(" "case" expression
+         caseClause+ ")"
+     | "(" "case" expression
+         caseClause*
+         "(" "else" sequence ")" ")"
+     | "(" "and" test* ")"
+     | "(" "or" test* ")"
+     | "(" "let" "(" bindingSpec* ")" body ")"
+     | "(" "let" variable "(" bindingSpec* ")" body ")"
+     | "(" "let*" "(" bindingSpec* ")" body ")"
+     | "(" "letrec" "(" bindingSpec* ")" body ")"
+     | "(" "begin" sequence ")"
+     | "(" "do" "(" iterationSpec* ")"
+           "(" test doResult ")"
+         command* ")"
+     | "(" "delay" expression ")"
+     | quasiquotation;
+
+condClause : "(" test sequence ")"
+      | "(" test ")"
+      | "(" test "=>" recipient ")";
+
+recipient : expression;
+
+caseClause : "(" "(" datum* ")" sequence ")";
+
+bindingSpec : "(" variable expression ")";
+
+iterationSpec : "(" variable init step ")"
+    | "(" variable init ")";
+
+init : expression;
+
+step : expression;
+
+doResult : sequence | empty;
+
+macroUse : "(" keyword datum* ")";
+
+keyword : identifier;
+
+macroBlock :
+     "(" "let-syntax" "(" syntaxSpec* ")" body ")"
+     | "(" "letrec-syntax" "(" syntaxSpec* ")" body ")";
+
+syntaxSpec : "(" keyword transformerSpec ")";
+
 %%
 
 int
