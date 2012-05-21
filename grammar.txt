@@ -8,9 +8,6 @@ Tokens which require implicit termination (identifiers, numbers, characters, and
 
 The following five characters are reserved for future extensions to the language: [ ] { } |;
 
-token : identifier | boolean | number
-     | character | string
-     | "(" | ")" | "#(" | "'" | "`" | "," | ",@" | ".";
 
 delimiter : whitespace | "(" | ")" | " | ";";
 
