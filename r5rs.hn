@@ -166,13 +166,13 @@ selfEvaluating : boolean | number
 
 quotation : "'" datum | "(" "quote" datum ")";
 
-procedureCall : (operator operand*);
+procedureCall : "(" operator operand* ")";
 
 operator : expression;
 
 operand : expression;
 
-lambdaExpression : (lambda formals body);
+lambdaExpression : "(" lambda formals body ")";
 
 formals : "(" variable* ")" | variable
      | "(" variable+ "." variable ")";
@@ -183,7 +183,7 @@ sequence : command* expression;
 
 command : expression;
 
-conditional : (if test consequent alternate);
+conditional : "(" "if" test consequent alternate ")";
 
 test : expression;
 
@@ -191,10 +191,10 @@ consequent : expression;
 
 alternate : expression | empty;
 
-assignment : (set! variable expression);
+assignment : "(" "set!" variable expression ")";
 
 derivedExpression :
-       (cond condClause+)
+       "(" "cond" condClause+ ")"
      | "(" "cond" condClause* "(" "else" sequence ")" ")"
      | "(" "case" expression
          caseClause+ ")"
