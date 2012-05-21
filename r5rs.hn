@@ -246,7 +246,7 @@ operator : expression;
 
 operand : expression;
 
-lambdaExpression : "(" lambda formals body ")";
+lambdaExpression : "(" "lambda" formals body ")";
 
 formals : "(" variable* ")" | variable
      | "(" variable+ "." variable ")";
@@ -263,7 +263,7 @@ test : expression;
 
 consequent : expression;
 
-alternate : expression | empty;
+alternate : expression | "";
 
 assignment : "(" "set!" variable expression ")";
 
@@ -305,7 +305,7 @@ init : expression;
 
 step : expression;
 
-doResult : sequence | empty;
+doResult : sequence | "";
 
 macroUse : "(" keyword datum* ")";
 
