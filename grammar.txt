@@ -88,21 +88,3 @@ pattern-identifier : any-identifier-except-`...';
 ellipsis : the-identifier-`...'
 
 7.1.6 Programs and definitions;
-
-
-program : command-or-definition*;
-
-command-or-definition : command
-    | definition
-    | syntax-definition
-    | "(begin" command-or-definition+);
-
-definition : (define variable expression)
-      | "(define" (variable def-formals) body)
-      | "(begin" definition*);
-
-def-formals : variable*
-      | variable* . variable;
-
-syntax-definition :
-     (define-syntax keyword transformer-spec)

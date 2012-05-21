@@ -22,6 +22,26 @@ using namespace std;
 
 %%
 
+// Programs and definitions
+
+program : commandOrDefinition*;
+
+commandOrDefinition : command
+    | definition
+    | syntaxDefinition
+    | "(" "begin" commandOrDefinition+ ")";
+
+definition : "(" "define" variable expression ")"
+      | "(define" "(" variable defFormals ")" body ")"
+      | "(" "begin" definition* ")";
+
+defFormals : variable*
+      | variable* "." variable;
+
+syntaxDefinition :
+	  "(" "define-syntax" keyword transformerSpec ")" ;
+
+
 // Lexical structure
 
 token : identifier | boolean | number
