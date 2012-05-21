@@ -126,6 +126,26 @@ digit2 : "0" | "1";
 digit8 : "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7";
 digit10 : digit;
 digit16 : digit10 | "a" | "b" | "c" | "d" | "e" | "f";
+
+// External Representations
+
+datum : simpleDatum | compoundDatum;
+
+simpleDatum : boolean | number
+     | character | string |  symbol;
+
+symbol : identifier;
+
+compoundDatum : list | vector;
+
+list : '(' datum* ')' | '(' datum+ '.' datum ')'
+       | abbreviation;
+
+abbreviation : abbrevPrefix datum;
+
+abbrevPrefix : "'" | "`" | "," | ",@";
+
+vector : '#' '(' datum* ')';
 %%
 
 int
