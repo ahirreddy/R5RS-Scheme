@@ -118,7 +118,7 @@ real2 : sign ureal2;
 
 ureal2 : uinteger2
     | uinteger2 "/" uinteger2
-	| decimal2;
+	/*| decimal2*/;
 
 uinteger2 : digit2+ "#*";
 
@@ -136,7 +136,7 @@ real8 : sign ureal8;
 
 ureal8 : uinteger8
     | uinteger8 "/" uinteger8
-	| decimal8;
+	/*| decimal8*/;
 
 uinteger8 : digit8+ "#*";
 
@@ -172,7 +172,7 @@ real16 : sign ureal16;
 
 ureal16 : uinteger16
     | uinteger16 "/" uinteger16
-	| decimal16;
+	/*| decimal16*/;
 
 uinteger16 : digit16+ "#*";
 
