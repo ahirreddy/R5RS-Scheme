@@ -39,7 +39,7 @@ defFormals : variable*
       | variable* "." variable;
 
 syntaxDefinition :
-	  "(" "define-syntax" keyword transformerSpec ")" ;
+	  "(" "define-syntax" keyword /* ------ transformerSpec */ ")" ;
 
 
 // Lexical structure
@@ -286,7 +286,9 @@ derivedExpression :
            "(" test doResult ")"
          command* ")"
      | "(" "delay" expression ")"
+/* ------------------
      | quasiquotation;
+	*/;
 
 condClause : "(" test sequence ")"
       | "(" test ")"
@@ -315,7 +317,7 @@ macroBlock :
      "(" "let-syntax" "(" syntaxSpec* ")" body ")"
      | "(" "letrec-syntax" "(" syntaxSpec* ")" body ")";
 
-syntaxSpec : "(" keyword transformerSpec ")";
+syntaxSpec : "(" keyword /* transformerSpec */ ")";
 
 /* Lexical Rules! */
 
