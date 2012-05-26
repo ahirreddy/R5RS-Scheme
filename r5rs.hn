@@ -92,7 +92,7 @@ variable : "any var not a key word" ; //<'any identifier that isn't also a synta
 
 boolean : "#t" | "#f";
 
-character : "#\\" anyCharacter
+character : "#\\" ANYCHARACTER
      | "#\\" characterName;
 
 characterName : "space" | "newline";
@@ -316,6 +316,13 @@ macroBlock :
      | "(" "letrec-syntax" "(" syntaxSpec* ")" body ")";
 
 syntaxSpec : "(" keyword transformerSpec ")";
+
+/* Lexical Rules! */
+
+_UpperCase : 'A' .. 'Z' ;
+_LowerCase : 'a' .. 'z' ;
+
+ANYCHARACTER : _UpperCase | _LowerCase ;
 
 %%
 
